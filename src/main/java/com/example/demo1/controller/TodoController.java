@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class TodoController {
@@ -30,11 +29,8 @@ public class TodoController {
 
     @GetMapping("/todos/{id}")
     public ResponseEntity<Todo> getById(@PathVariable("id") long id) {
-        Optional<Todo> tutorialData = todoService.findById(id);
-
-        return tutorialData
-                .map(todo -> new ResponseEntity<>(todo, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Todo todo = todoService.findById(id);
+        return new ResponseEntity<>(todo, HttpStatus.OK);
     }
 
     @PostMapping("/todos")

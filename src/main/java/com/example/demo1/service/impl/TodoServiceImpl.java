@@ -30,8 +30,9 @@ public class TodoServiceImpl implements TodoService  {
     }
 
     @Override
-    public Optional<Todo> findById(Long todoId) {
-        return todoRepository.findById(todoId);
+    public Todo findById(Long todoId) {
+        return todoRepository.findById(todoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo " + todoId + " not found!"));
     }
 
     @Override
