@@ -8,7 +8,6 @@ import com.example.demo1.service.TodoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TodoServiceImpl implements TodoService  {
@@ -30,8 +29,9 @@ public class TodoServiceImpl implements TodoService  {
     }
 
     @Override
-    public Optional<Todo> findById(Long todoId) {
-        return todoRepository.findById(todoId);
+    public Todo findById(Long todoId) {
+        return todoRepository.findById(todoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo " + todoId + " not found!"));
     }
 
     @Override
